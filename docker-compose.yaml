@@ -1,0 +1,20 @@
+version: '3'
+services:
+  lb:
+    image: openresty/openresty
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+    links:
+      - web1
+      - web2
+  web1:
+    image: nginx:latest
+    volumes:
+      - ./web1.conf:/etc/nginx/conf.d/nginx.conf
+  web2:
+    image: nginx:latest
+    volumes:
+      - ./web2.conf:/etc/nginx/conf.d/nginx.conf
